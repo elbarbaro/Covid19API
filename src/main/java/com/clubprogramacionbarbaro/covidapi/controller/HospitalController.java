@@ -32,7 +32,7 @@ public class HospitalController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Hospital> findAllHospitalById(@PathVariable("id") Integer id) {
-		return new ResponseEntity<>(service.findAllHospitalById(id), HttpStatus.OK);
+		return new ResponseEntity<>(service.findHospitalById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping

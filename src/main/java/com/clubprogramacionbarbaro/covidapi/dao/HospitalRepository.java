@@ -10,4 +10,5 @@ import com.clubprogramacionbarbaro.covidapi.model.Hospital;
 @Repository
 public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
 	List<Hospital> findByNombre(String nombre);
+	List<Hospital> findByTipoInstitucion(String tipoInstitucion);
 }

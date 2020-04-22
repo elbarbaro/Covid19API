@@ -1,5 +1,6 @@
 package com.clubprogramacionbarbaro.covidapi.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -23,18 +24,19 @@ public class HospitalServiceImpl implements HospitalService {
 	}
 	
 	@Override
-	public Hospital findAllHospitalById(Integer hospitalId) {
+	public Hospital findHospitalById(Integer hospitalId) {
 		return repository.findById(hospitalId).get();
 	}
 	
 	@Override
 	public Hospital saveHospital(Hospital hospital) {
+		hospital.setFechaCreacion(new Date());
 		return repository.save(hospital);
 	}
 	
 	@Override
 	public Hospital updateHospital(Integer hospitalId, Hospital hospital) {
-		Hospital hospitalDB = findAllHospitalById(hospitalId);
+		Hospital hospitalDB = findHospitalById(hospitalId);
 		hospitalDB.setNombre(hospital.getNombre());
 		hospitalDB.setLatitud(hospital.getLatitud());
 		hospitalDB.setLongitud(hospital.getLongitud());
