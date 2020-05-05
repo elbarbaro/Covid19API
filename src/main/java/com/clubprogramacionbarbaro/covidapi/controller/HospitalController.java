@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.clubprogramacionbarbaro.covidapi.model.Equipamiento;
 import com.clubprogramacionbarbaro.covidapi.model.Hospital;
 import com.clubprogramacionbarbaro.covidapi.service.HospitalService;
 
@@ -52,4 +53,9 @@ public class HospitalController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("{id}/equipamientos")
+	public ResponseEntity<List<Equipamiento>> findAllEquipamientoHospitalById(
+			@PathVariable("id") Integer hospitalId) {
+		return new ResponseEntity<>(service.findHospitalById(hospitalId).getEquipamientos(), HttpStatus.OK);
+	}
 }
