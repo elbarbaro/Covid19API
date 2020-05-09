@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.clubprogramacionbarbaro.covidapi.model.Equipamiento;
 import com.clubprogramacionbarbaro.covidapi.model.Hospital;
 import com.clubprogramacionbarbaro.covidapi.service.HospitalService;
+import com.clubprogramacionbarbaro.covidapi.error.HospitalNotFoundException;
 
 import lombok.AllArgsConstructor;
 
@@ -33,7 +34,8 @@ public class HospitalController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Hospital> findAllHospitalById(@PathVariable("id") Integer id) {
-		return new ResponseEntity<>(service.findHospitalById(id), HttpStatus.OK);
+		return new ResponseEntity<>(
+				service.findHospitalById(id).orElseThrow(() -> new HospitalNotFoundException(id)), HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -56,6 +58,8 @@ public class HospitalController {
 	@GetMapping("{id}/equipamientos")
 	public ResponseEntity<List<Equipamiento>> findAllEquipamientoHospitalById(
 			@PathVariable("id") Integer hospitalId) {
-		return new ResponseEntity<>(service.findHospitalById(hospitalId).getEquipamientos(), HttpStatus.OK);
+		return new ResponseEntity<>(service.findHospitalById(hospitalId)
+				.orElseThrow(() -> new HospitalNotFoundException(hospitalId))
+				.getEquipamientos(), HttpStatus.OK);
 	}
 }
